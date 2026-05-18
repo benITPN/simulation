@@ -2,15 +2,14 @@
 /* container size is controlled by JS */
 #game{
   position: relative;
-  display: inline-block; /* shrink-wrap to its children */
+  display: inline-block;
 }
 
-/* stack canvases, but let JS define their pixel size */
 #game canvas{
   position: absolute;
   left: 0;
   top: 0;
-  display: block; /* avoids baseline whitespace issues */
+  display: block;
 }
 
 #terrain { z-index: 0; }
