@@ -1,0 +1,155 @@
+
+/* container size is controlled by JS */
+#game{
+  position: relative;
+  display: inline-block; /* shrink-wrap to its children */
+}
+
+/* stack canvases, but let JS define their pixel size */
+#game canvas{
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block; /* avoids baseline whitespace issues */
+}
+
+#terrain { z-index: 0; }
+#entities { z-index: 1; background: transparent; }
+
+
+
+.creature-controls {
+  top: 20px;
+  left: 20px;
+  width: min(720px, 90vw);
+  max-width: 720px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 18px;
+  background: rgba(20, 24, 32, 0.9);
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: #f3f6ff;
+  font-family: Arial, sans-serif;
+  z-index: 1000;
+}
+
+.stats-card {
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stats-card h2 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+}
+
+.input-grid label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: right;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.input-grid span {
+  font-size: 13px;
+  color: #cfd7ea;
+  font-weight: 600;
+}
+
+.input-grid input {
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  outline: none;
+  background: rgba(10, 14, 20, 0.9);
+  color: white;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.input-grid input:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.input-grid input:focus {
+  border-color: #6aa8ff;
+  box-shadow: 0 0 0 3px rgba(106, 168, 255, 0.2);
+}
+
+.spawn-btn {
+  display: flex;
+  flex-basis: 100%;
+  justify-content: center;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #5b8cff, #7b61ff);
+  color: white;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 8px 20px rgba(91, 140, 255, 0.35);
+}
+
+.spawn-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(91, 140, 255, 0.45);
+}
+
+.spawn-btn:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 1700px) {
+  .input-grid {
+    grid-template-rows: 1fr;
+  }
+
+  .creature-controls {
+    width: calc(100vw - 24px);
+    left: 12px;
+    top: 12px;
+  }
+}
+
+
+.stats-card:first-of-type h2 {
+  color: #ff8c8c;
+}
+
+.stats-card:nth-of-type(2) h2 {
+  color: #7db2ff;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
