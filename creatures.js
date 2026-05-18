@@ -17,7 +17,7 @@ export const CREATURE_SETTINGS = {
   },
   carnivore: {
     count: 50,
-    food: 100,
+    food: 100, 
     water: 100,
     hp: 100,
     sight: 5,
