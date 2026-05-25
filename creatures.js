@@ -39,8 +39,8 @@ export function updateCreatureSettingsFromHTML() {
   CREATURE_SETTINGS.herbivore.speed = Number(document.getElementById("herbivore-speed").value);
   CREATURE_SETTINGS.herbivore.size = Number(document.getElementById("herbivore-size").value);
   CREATURE_SETTINGS.herbivore.breedTime = Number(document.getElementById("herbivore-breed-time").value);
-  CREATURE_SETTINGS.herbivore.waterDecayRate = Number(document.getElementById("water-Decay-Rate").value);
-  CREATURE_SETTINGS.herbivore.foodDecayRate = Number(document.getElementById("food-Decay-Rate").value);
+  CREATURE_SETTINGS.herbivore.waterDecayRate = Number(document.getElementById("herbivore-water-Decay-Rate").value);
+  CREATURE_SETTINGS.herbivore.foodDecayRate = Number(document.getElementById("herbivore-food-Decay-Rate").value);
 
   CREATURE_SETTINGS.carnivore.count = Number(document.getElementById("carnivore-count").value);
   CREATURE_SETTINGS.carnivore.food = Number(document.getElementById("carnivore-food").value);
@@ -49,8 +49,8 @@ export function updateCreatureSettingsFromHTML() {
   CREATURE_SETTINGS.carnivore.speed = Number(document.getElementById("carnivore-speed").value);
   CREATURE_SETTINGS.carnivore.size = Number(document.getElementById("carnivore-size").value);
   CREATURE_SETTINGS.carnivore.breedTime = Number(document.getElementById("carnivore-breed-time").value);
-  CREATURE_SETTINGS.carnivore.waterDecayRate = Number(document.getElementById("water-Decay-Rate").value);
-  CREATURE_SETTINGS.carnivore.foodDecayRate = Number(document.getElementById("food-Decay-Rate").value);
+  CREATURE_SETTINGS.carnivore.waterDecayRate = Number(document.getElementById("carnivore-water-Decay-Rate").value);
+  CREATURE_SETTINGS.carnivore.foodDecayRate = Number(document.getElementById("carnivore-food-Decay-Rate").value);
 }
 
 
@@ -512,18 +512,34 @@ findClosestNonWaterTile(tiles) {
 
   drawStats() {
 
+  const allBarsYOffset = -25;
+
+  const waterYOffset = -30 + allBarsYOffset;
+  const waterInnerRectYOffset = -28 + allBarsYOffset;
+
+  const foodYOffset = -45 + allBarsYOffset;
+  const foodInnerRectYOffset = -43 + allBarsYOffset;
+
+  const barBorderWidth = 2;
+  const barHeight = 10;
+  const barInnerHeight = 6;
+
+
+  const breedMarkerSize = 10;
+  const breedMarkerYOffset = 15;
+
     // water bar
     this.ctx.fillStyle = "black";
     this.ctx.strokeStyle = "black";
     this.ctx.beginPath();
-    this.ctx.lineWidth = 2;
-    this.ctx.rect(this.x - this.MaxWater / 4, this.y - 30, this.MaxWater / 2, 10);
+    this.ctx.lineWidth = barBorderWidth;
+    this.ctx.rect(this.x - this.MaxWater / 4, this.y + waterYOffset, this.MaxWater / 2, barHeight);
     this.ctx.stroke();
     this.ctx.closePath()
     this.ctx.beginPath();
     this.ctx.fillStyle = "blue";
     this.ctx.strokeStyle = "blue";
-    this.ctx.rect(this.x - this.MaxWater / 4.1, this.y - 28, this.water / 2, 6);
+    this.ctx.rect(this.x - this.MaxWater / 4.1, this.y + waterInnerRectYOffset, this.water / 2, barInnerHeight);
     this.ctx.fill();
     this.ctx.stroke();
     this.ctx.closePath()
@@ -531,14 +547,14 @@ findClosestNonWaterTile(tiles) {
     // food bar
     this.ctx.beginPath();
     this.ctx.strokeStyle = "black";
-    this.ctx.lineWidth = 2;
-    this.ctx.rect(this.x - this.MaxFood / 4, this.y - 45, this.MaxFood / 2, 10);
+    this.ctx.lineWidth = barBorderWidth;
+    this.ctx.rect(this.x - this.MaxFood / 4, this.y + foodYOffset, this.MaxFood / 2, barHeight);
     this.ctx.stroke();
     this.ctx.closePath()
     this.ctx.beginPath();
     this.ctx.fillStyle = "orange";
     this.ctx.strokeStyle = "orange";
-    this.ctx.rect(this.x - this.MaxFood / 4 + 2, this.y - 43, this.food / 2.2, 6);
+    this.ctx.rect(this.x - this.MaxFood / 4 + 2, this.y + foodInnerRectYOffset, this.food / 2.2, barInnerHeight);
     this.ctx.fill();
     this.ctx.stroke();
     this.ctx.closePath()
@@ -550,7 +566,7 @@ findClosestNonWaterTile(tiles) {
       this.ctx.strokeStyle = "lightGreen";
 
       // centered 10x10 square under the dot
-      this.ctx.rect(this.x - 5, this.y + 30, 10, 10);
+      this.ctx.rect(this.x - (breedMarkerSize/2), this.y + breedMarkerYOffset, breedMarkerSize, breedMarkerSize);
 
       this.ctx.fill();
       this.ctx.stroke();
@@ -603,6 +619,7 @@ findClosestNonWaterTile(tiles) {
 
     if (this.water <= 0 || this.food <= 0) {
       this.die(creatureList);
+      return;
     }
 
     if (this.food > this.MaxFood / 2 && this.water > this.MaxWater / 2 && !this.isWaitingForBreeding && !this.canBreed) {
@@ -823,6 +840,7 @@ class CreatureCarnivore extends CreatureHerbivore {
 
     if (this.water <= 0 || this.food <= 0) {
       this.die(creatureList);
+      return;
     }
 
     if (this.food > this.MaxFood / 2 && this.water > this.MaxWater / 2 && !this.isWaitingForBreeding && !this.canBreed) {
